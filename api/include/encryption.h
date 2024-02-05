@@ -4,8 +4,8 @@
 #include <iostream>
 #include <string>
 
-namespace encryption {
+namespace crypto {
 
-} // namespace encryption
+} // namespace crypto
 
 #endif // ENCRYPTION_H

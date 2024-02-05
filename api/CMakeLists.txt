@@ -5,4 +5,4 @@ project(${PROJECT_NAME} LANGUAGES CXX)
 
 set(CMAKE_CXX_STANDARD 11)
 
-# add_library(api STATIC "${CMAKE_CURRENT_SOURCE_DIR}/src/person.cpp" "${CMAKE_CURRENT_SOURCE_DIR}/lib/person.h")
+add_library(api STATIC "${CMAKE_CURRENT_SOURCE_DIR}/src/encryption.cpp" "${CMAKE_CURRENT_SOURCE_DIR}/include/encryption.h")

@@ -13,14 +13,14 @@ namespace crypto{
     }
 
      void Server::InitializationServer(){
-        std::cout << "entrou\n";
-        server_->Post(R"(/(\d+))", [&](const httplib::Request& req, httplib::Response& res) {
+        server_->Post(R"(/(\w+))", [&](const httplib::Request& req, httplib::Response& res) {
             *text_ = req.matches[1];
             std::cout << "Received Text: " << *text_ << std::endl;
             try
             {
                 EncryptionMessage();
                 GenerateResponse(text_);
+                
                 res.set_content(*response_, "application/json");
             }
             catch(const std::exception& e)
@@ -33,6 +33,7 @@ namespace crypto{
     }
     void Server::EncryptionMessage(){
         encryption_->Encrypt(text_);
+        std::cout << *text_ << std::endl;
     }
     void Server::GenerateResponse(const std::shared_ptr<std::string> encryptedMessage){
         *response_ = "{ \"encryptedMessage\": \"" + *encryptedMessage + "\" }";

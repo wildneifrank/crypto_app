@@ -13,8 +13,7 @@ namespace crypto {
         void Encrypt(const std::shared_ptr<std::string> message);
 
         private:
-        std::shared_ptr<std::string> message_;
-        std::string encrypted_message_;
+        std::shared_ptr<std::string> encrypted_message_;
         std::shared_ptr<int> shift_;
     };
 } // namespace crypto

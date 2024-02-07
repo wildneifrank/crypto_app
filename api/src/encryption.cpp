@@ -4,14 +4,13 @@
 #include <cctype>
 
 namespace crypto {
-    Encryption::Encryption(std::shared_ptr<std::string> message, 
-                            std::shared_ptr<int> shift):
-                            message_(message),
-                            shift_(shift){};
+    Encryption::Encryption():
+                            message_(std::make_shared<std::string>()),
+                            shift_(std::make_shared<int>(3)){};
     Encryption::~Encryption(){};
 
-    void Encryption::Encrypt(){
-        encrypted_message_ = *message_;
+    void Encryption::Encrypt(std::shared_ptr<std::string> message_received_){
+        encrypted_message_ = *message_received_;
 
         for (char& character : encrypted_message_) {
             if (isalpha(character)) {

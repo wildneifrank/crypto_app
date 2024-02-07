@@ -7,10 +7,10 @@
 namespace crypto {
     class Encryption{
         public:
-        Encryption(const std::shared_ptr<std::string> message, const std::shared_ptr<int> shift);
+        Encryption();
         ~Encryption();
 
-        void Encrypt();
+        void Encrypt(const std::shared_ptr<std::string> message);
 
         private:
         std::shared_ptr<std::string> message_;

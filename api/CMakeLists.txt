@@ -23,5 +23,4 @@ set(HEADERS
 # Add the library
 add_library(${PROJECT_NAME} STATIC ${SOURCES} ${HEADERS})
 
-# Include directories for the target
-target_include_directories(${PROJECT_NAME} PUBLIC "${CMAKE_CURRENT_SOURCE_DIR}/include")
+target_link_libraries(${PROJECT_NAME} httplib nlohmann_json)

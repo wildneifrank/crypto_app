@@ -3,9 +3,9 @@
 
 #include <iostream>
 #include <string>
-#include "httplib.h"
+#include <httplib.h>
+#include <nlohmann/json.hpp>
 #include "encryption.h"
-#include "../include/http_server.h"
 
 namespace crypto {
     class Server{

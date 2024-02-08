@@ -1,7 +1,10 @@
-#include "../include/http_server.h"
+
 #include <iostream>
 #include <string>
+#include <nlohmann/json.hpp>
+#include <httplib.h>
 #include "../include/encryption.h"
+#include "../include/http_server.h"
 
 namespace crypto{
     Server::Server():encryption_(std::make_shared<Encryption>()),
@@ -12,25 +15,31 @@ namespace crypto{
         std::cout << "Server was closed" << std::endl;
     }
 
-     void Server::InitializationServer(){
-        server_->Post(R"(/(\w+))", [&](const httplib::Request& req, httplib::Response& res) {
-            *text_ = req.matches[1];
-            std::cout << "Received Text: " << *text_ << std::endl;
-            try
-            {
-                EncryptionMessage();
-                GenerateResponse(text_);
+    void Server::InitializationServer() {
+    server_->Post("/", [&](const httplib::Request& req, httplib::Response& res) {
+        // Check if the request has a body
+        if (req.has_header("Content-Length") && req.body.length() > 0) {
+            try {
+                // Parse the JSON body
+                auto json_body = nlohmann::json::parse(req.body);
+                *text_ = json_body["text"];
                 
+                // Encrypt the message
+                EncryptionMessage();
+                
+                // Generate response
+                GenerateResponse(text_);
                 res.set_content(*response_, "application/json");
+            } catch(const std::exception& e) {
+                res.set_content("Error parsing JSON body", "text/plain");
             }
-            catch(const std::exception& e)
-            {
-                res.set_content("Encryption failed", "text/plain");
-            }
-            
-        });
-        server_->listen("localhost", 8080);
-    }
+        } else {
+            res.set_content("No message provided in the request body", "text/plain");
+        }
+    });
+    server_->listen("localhost", 8080);
+}
+
     void Server::EncryptionMessage(){
         encryption_->Encrypt(text_);
         std::cout << *text_ << std::endl;

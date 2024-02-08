@@ -16,7 +16,22 @@ namespace crypto{
     }
 
     void Server::InitializationServer() {
+    // Define a handler for OPTIONS requests
+    server_->Options("/", [&](const httplib::Request& req, httplib::Response& res) {
+        // Set CORS headers to allow requests from any origin
+        res.set_header("Access-Control-Allow-Origin", "*");
+        res.set_header("Access-Control-Allow-Methods", "GET, POST, OPTIONS");
+        res.set_header("Access-Control-Allow-Headers", "Content-Type");
+        res.status = 200; // Set status to 200 OK
+    });
+
+    // Define a handler for POST requests
     server_->Post("/", [&](const httplib::Request& req, httplib::Response& res) {
+        // Set CORS headers to allow requests from any origin
+        res.set_header("Access-Control-Allow-Origin", "*");
+        res.set_header("Access-Control-Allow-Methods", "GET, POST, OPTIONS");
+        res.set_header("Access-Control-Allow-Headers", "Content-Type");
+
         // Check if the request has a body
         if (req.has_header("Content-Length") && req.body.length() > 0) {
             try {
@@ -37,8 +52,12 @@ namespace crypto{
             res.set_content("No message provided in the request body", "text/plain");
         }
     });
+
+    std::cout << "Server started successfully. Listening on port 8080" << std::endl;
     server_->listen("localhost", 8080);
-}
+    }
+
+
 
     void Server::EncryptionMessage(){
         encryption_->Encrypt(text_);

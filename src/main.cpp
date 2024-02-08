@@ -4,7 +4,6 @@
 int main() {
     crypto::Server server;
     server.InitializationServer();
-    std::cout << "Server started successfully. Listening on port 8080" << std::endl;
 
     return 0;
 }

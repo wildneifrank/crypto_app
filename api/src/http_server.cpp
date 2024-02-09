@@ -56,9 +56,6 @@ namespace crypto{
     std::cout << "Server started successfully. Listening on port 8080" << std::endl;
     server_->listen("localhost", 8080);
     }
-
-
-
     void Server::EncryptionMessage(){
         encryption_->Encrypt(text_);
         std::cout << *text_ << std::endl;

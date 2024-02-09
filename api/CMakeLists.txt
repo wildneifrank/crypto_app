@@ -17,7 +17,6 @@ set(SOURCES
 set(HEADERS
     "${CMAKE_CURRENT_SOURCE_DIR}/include/encryption.h"
     "${CMAKE_CURRENT_SOURCE_DIR}/include/http_server.h"
-    "${CMAKE_CURRENT_SOURCE_DIR}/include/httplib.h"  # Assuming httplib.h is in the include directory
 )
 
 # Add the library

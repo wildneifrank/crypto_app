@@ -4,7 +4,6 @@
 int main() {
     crypto::Server server;
     server.InitializationServer();
-
     return 0;
 }
 
